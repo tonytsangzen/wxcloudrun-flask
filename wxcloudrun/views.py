@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import render_template, request
+from flask import render_template, request, redirect
 from run import app
 from wxcloudrun.dao import delete_counterbyid, query_counterbyid, insert_counter, update_counterbyid
 from wxcloudrun.model import Counters
@@ -11,7 +11,8 @@ def index():
     """
     :return: 返回index页面
     """
-    return render_template('index.html')
+    return redirect('https://www.baidu.com/')
+    #return render_template('index.html')
 
 
 @app.route('/api/count', methods=['POST'])
