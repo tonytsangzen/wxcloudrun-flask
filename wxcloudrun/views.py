@@ -1,9 +1,19 @@
 from datetime import datetime
 from flask import render_template, request, redirect
+from flask_sockets import Sockets
 from run import app
 from wxcloudrun.dao import delete_counterbyid, query_counterbyid, insert_counter, update_counterbyid
 from wxcloudrun.model import Counters
 from wxcloudrun.response import make_succ_empty_response, make_succ_response, make_err_response
+
+sockets = Sockets(app)
+
+
+@sockets.route('/echo')
+def echo_socket(ws):
+    while not ws.closed:
+        message = ws.receive()
+        ws.send("come from web server: " + str(message))
 
 
 @app.route('/')
